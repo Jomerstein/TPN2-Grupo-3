@@ -10,8 +10,6 @@
           
         
             <router-link to="/Login">Login</router-link>
-          
-          <a >Registrarse</a>
         
         </div>
         <div class="navbar-toggle" @click="toggleMenu">
