@@ -6,16 +6,19 @@ export const useUserStore = defineStore('userStore', {
     }),
     actions: {
         async register(usuario){
-        
+            
             try{
-            await fetch("https://6657b24c5c36170526459cda.mockapi.io/rental/users/users",{
-                method: "POST",
-                body: JSON.stringify(usuario),
-                headers: {
-                    "Content-Type": "application/json",
-                    // 'Content-Type': 'application/x-www-form-urlencoded',
-                  },
+                console.log(usuario);
+                const respuesta = await fetch('https://6657b24c5c36170526459cda.mockapi.io/rental/users/users', {
+                    method: 'POST', // Método HTTP para crear un recurso
+                    headers: {
+                        'Content-Type': 'application/json' // Tipo de contenido que se envía
+                    },
+                    body: JSON.stringify(usuario)
+                    
+                  ,
             })
+           
        
 
          
