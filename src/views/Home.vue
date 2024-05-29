@@ -1,11 +1,12 @@
 <template lang="">
-    <div>
-        hola
-    </div>
+    <CarGallery />
 </template>
 <script>
+import CarGallery from '../components/CarGallery.vue'
 export default {
-    
+    components: {
+        CarGallery
+    }
 }
 </script>
 <style lang="">
