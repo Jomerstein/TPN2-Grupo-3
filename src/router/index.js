@@ -5,18 +5,18 @@ import CarDetail from '@/views/CarDetail.vue'
 import CrearAuto from '@/views/CrearAuto.vue'
 import ModificarAuto from '@/views/ModificarAuto.vue'
 import EliminarAuto from '@/views/EliminarAuto.vue'
-
+import Admin from '@/views/Admin.vue'
 
 const routes = [
   {
-    path: "/Home",
+    path: "/home",
     name:"Home",
     component: Home
 
   },
   {
     path: '/',
-    redirect: '/Home'
+    redirect: '/home'
   },
   {
     path: '/login',
@@ -42,7 +42,16 @@ const routes = [
     path: '/eliminarAuto',
     name: 'EliminarAuto',
     component: EliminarAuto
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Admin,
+    meta: {
+            requiereAuth: true
+        }
   }
+
 ]
 
 
@@ -50,5 +59,15 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 })
+
+router.beforeEach((to, from, next) => {
+    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+    if(to.meta.requiereAuth && !isAuthenticated){
+        next({name:'Login'})
+    }
+    else{
+        next();
+    }
+ })
 
 export default router

@@ -15,7 +15,7 @@
     </div>
 </template>
 <script>
-import { useUserStore } from '@/stores/userStore'
+import { useAuthStore } from '@/stores/userStore'
 export default {
     data(){
         return{
@@ -26,7 +26,7 @@ export default {
         }
     },methods:{
         async register(){
-            const userStore = useUserStore()
+            const userStore = useAuthStore()
             const usuario = {
                 name: this.name,
                 surname:this.surname,
