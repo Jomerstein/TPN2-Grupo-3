@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia';
 
-export const useUserStore = defineStore('userStore', {
+export const useAuthStore = defineStore('userStore', {
     state: () => ({
-        
+        isAuthenticated: false, 
+        user: null,
     }),
     actions: {
         async register(usuario){
@@ -25,6 +26,17 @@ export const useUserStore = defineStore('userStore', {
             }catch(error){
                 console.log(error);
             }
+        },
+
+        login(mail, password){
+            if(mail == "admin@gmail.com" && password == "admin"){
+                this.isAuthenticated = true;
+                this.user = { username }
+                localStorage.setItem('isAuthenticated', 'true');
+              }else{
+                alert('Usuario no válido')
+              } 
         }
+
     }
 })

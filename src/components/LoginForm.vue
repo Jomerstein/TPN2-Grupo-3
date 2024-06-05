@@ -1,23 +1,45 @@
 <template >
     <div>
-        <form class="formulario" action="">
+        <form @submit.prevent="login" class="formulario" action="">
             <label for="">Correo</label>
-           
-            <input required type="email" name="nombre" id="nombre">
-           
+
+            <input v-model="username" required type="email" name="nombre" id="nombre">
+
             <label>Contraseña</label>
-            
-            <input required type="password" name="constasenia" id="constrasenia">
-           
-            <button>Ingresar</button>
+
+            <input v-model="password" required type="password" name="constasenia" id="constrasenia">
+
+            <button type="submit">Ingresar</button>
         </form>
     </div>
 </template>
+
+
 <script>
+import { useAuthStore } from "@/stores/userStore";
 export default {
-    
+    data() {
+        return {
+            username: '',
+            password: ''
+        }
+    },
+    methods: {
+        login() {
+            this.$router.push({ name: 'Admin' })//funciona el pusheo
+            const useUserStore = useAuthStore();
+            useUserStore.login(this.username, this.password);
+            if (useUserStore.isAuthenticated) {
+                this.$router.push({ name: 'Admin' })
+            }
+        }
+    }
+   
 }
 </script>
+
+
+
 <style scoped>
      .formulario{
         display: flex;
