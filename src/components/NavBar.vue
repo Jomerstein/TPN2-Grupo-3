@@ -7,8 +7,7 @@
         <div class="navbar-menu">
           <router-link to="/CarDetail">Detalle Auto</router-link> 
           <router-link to="/CrearAuto">Agregar Auto</router-link>
-          <router-link to="/ModificarAuto">Modificar Auto</router-link> 
-          <router-link to="/EliminarAuto">Eliminar Auto</router-link>  
+          <!-- acá también poner o sacar según sea admin o no -->
           <router-link to="/Home">Home</router-link>
           
         
