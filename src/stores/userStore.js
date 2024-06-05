@@ -36,6 +36,10 @@ export const useAuthStore = defineStore('userStore', {
               }else{
                 alert('Usuario no válido')
               } 
+        },
+
+        isAdmin(){
+            return this.user.isAdmin
         }
 
     }

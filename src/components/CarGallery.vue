@@ -8,9 +8,9 @@
                     <p>Año: {{ car.ano }}</p>
                     <p>Marca: {{ car.marca }}</p>
                     <p class="price">Precio: {{ car.precio }}</p>
-                    <button :disabled="car.idUser" @click="rentCar(car.id)">
-                    {{ car.idUser !== 0 ? `Alquilado hasta ${car.alquiladoHasta}` : 'Rent Now' }}
-                    </button>
+                    <button :disabled="car.idUser" @click="verDetalle(car)">
+                      Ver detalle
+                    </button>>
                 </div>
             </div>
     </div>
@@ -123,13 +123,8 @@ export default {
     }
   },
   methods: {
-    rentCar(carId) {
-      const car = this.cars.find(c => c.id === carId);
-      if (car) {
-        car.idUser = 1; // TODO: set as IdUser
-        car.alquiladoHasta = '2024-12-31';  // Example date, replace with actual logic
-        alert(`Car ${car.Nombre} has been rented.`);
-      }
+    verDetalle(car){
+      this.$router.push({path: `/carDetail/${car.id}`})
     }
   }
 }
