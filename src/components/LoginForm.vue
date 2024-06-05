@@ -26,7 +26,7 @@ export default {
     },
     methods: {
         login() {
-            this.$router.push({ name: 'Admin' })//funciona el pusheo
+          //  this.$router.push({ name: 'Admin' })//funciona el pusheo
             const useUserStore = useAuthStore();
             useUserStore.login(this.username, this.password);
             if (useUserStore.isAuthenticated) {

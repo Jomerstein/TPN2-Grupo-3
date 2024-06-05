@@ -10,7 +10,7 @@ export const useAuthStore = defineStore('userStore', {
             
             try{
                 console.log(usuario);
-                const respuesta = await fetch('https://6657b24c5c36170526459cda.mockapi.io/rental/users/users', {
+                const respuesta = await fetch('https://6657b24c5c36170526459cda.mockapi.io/rental/users', {
                     method: 'POST', // Método HTTP para crear un recurso
                     headers: {
                         'Content-Type': 'application/json' // Tipo de contenido que se envía
