@@ -5,11 +5,14 @@
           <a href="#">MiMarca</a>
         </div>
         <div class="navbar-menu">
-         
-            <router-link to="/Home">Home</router-link>
+          <router-link to="/CarDetail">Detalle Auto</router-link> 
+          <router-link to="/CrearAuto">Agregar Auto</router-link>
+          <router-link to="/ModificarAuto">Modificar Auto</router-link> 
+          <router-link to="/EliminarAuto">Eliminar Auto</router-link>  
+          <router-link to="/Home">Home</router-link>
           
         
-            <router-link to="/Login">Login</router-link>
+          <router-link to="/Login">Login</router-link>
         
         </div>
         <div class="navbar-toggle" @click="toggleMenu">
