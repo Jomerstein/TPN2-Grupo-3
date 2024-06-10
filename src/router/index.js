@@ -7,11 +7,13 @@ import ModificarAuto from '@/views/ModificarAuto.vue'
 import EliminarAuto from '@/views/EliminarAuto.vue'
 import Admin from '@/views/Admin.vue'
 
+
 const routes = [
   {
     path: "/home",
     name:"Home",
-    component: Home
+    component: Home,
+    
 
   },
   {
@@ -26,7 +28,10 @@ const routes = [
   {
     path: '/carDetail/:id',
     name: 'CarDetail',
-    component: CarDetail
+    component: CarDetail,
+     meta: {
+            requiereAuth: true
+        }
   },
   {
     path: '/crearAuto',
@@ -63,11 +68,13 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
     if(to.meta.requiereAuth && !isAuthenticated){
-        next({name:'Login'})
+        next({name:'Home'})
     }
     else{
         next();
     }
- })
+})
+ 
+
 
 export default router
