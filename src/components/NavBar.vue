@@ -1,33 +1,35 @@
 <template>
-    <nav class="navbar">
-      <div class="navbar-container">
-        <div class="navbar-brand">
-          <a href="#">MiMarca</a>
-        </div>
-        <div class="navbar-menu">
-          <router-link to="/CarDetail">Detalle Auto</router-link> 
-          <router-link to="/CrearAuto">Agregar Auto</router-link>
-          <!-- acá también poner o sacar según sea admin o no -->
-          <router-link to="/Home">Home</router-link>
-          
-        
-          <router-link to="/Login">Login</router-link>
-        
-        </div>
-        <div class="navbar-toggle" @click="toggleMenu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="navbar-brand">
+        <a href="#">MiMarca</a>
       </div>
-      <div class="navbar-dropdown" :class="{ 'is-active': isActive }">
-        <a href="#" @click="toggleMenu">Inicio</a>
-        <a href="#" @click="toggleMenu">Sobre Nosotros</a>
-        <a href="#" @click="toggleMenu">Servicios</a>
-        <a href="#" @click="toggleMenu">Contacto</a>
+      <div class="navbar-menu">
+
+        <router-link to="/CarDetail">Detalle Auto</router-link>
+        <!--<router-link to="/CrearAuto">Agregar Auto</router-link>-->
+        <!-- acá también poner o sacar según sea admin o no -->
+        <router-link to="/Home">Home</router-link>
+
+
+        <router-link to="/Login">Login</router-link>
+        <button @click="logout" type="button">Logout</button>
+
       </div>
-    </nav>
-  </template>
+      <div class="navbar-toggle" @click="toggleMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="navbar-dropdown" :class="{ 'is-active': isActive }">
+      <a href="#" @click="toggleMenu">Inicio</a>
+      <a href="#" @click="toggleMenu">Sobre Nosotros</a>
+      <a href="#" @click="toggleMenu">Servicios</a>
+      <a href="#" @click="toggleMenu">Contacto</a>
+    </div>
+  </nav>
+</template>
   
   <script>
   export default {
@@ -42,6 +44,10 @@
       },
       ingresar(){
 
+      },
+      logout() {
+        localStorage.removeItem('isAuthenticated');
+        this.$router.push({ name: 'Login' });
       }
     },
   };

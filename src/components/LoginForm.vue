@@ -26,11 +26,10 @@ export default {
     },
     methods: {
         login() {
-          //  this.$router.push({ name: 'Admin' })//funciona el pusheo
             const useUserStore = useAuthStore();
             useUserStore.login(this.username, this.password);
-            if (useUserStore.isAuthenticated) {
-                this.$router.push({ name: 'Admin' })
+            if (useUserStore.isAuthenticated == true) {
+                this.$router.push({ name: 'Home' })
             }
         }
     }

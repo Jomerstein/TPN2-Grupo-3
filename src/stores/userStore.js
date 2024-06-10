@@ -28,14 +28,39 @@ export const useAuthStore = defineStore('userStore', {
             }
         },
 
-        login(mail, password){
-            if(mail == "admin@gmail.com" && password == "admin"){
+        async login(mail, password) {
+            const user = await this.traerUsuario(mail, password)
+
+            if (user != null && user.email == "admin@gmail.com" && user.password == "admin") {
                 this.isAuthenticated = true;
-                this.user = { username }
-                localStorage.setItem('isAuthenticated', 'true');
-              }else{
+                 localStorage.setItem('isAuthenticated','true')
+            } else if(user != null){
+                this.isAuthenticated = true;
+                localStorage.setItem('isAuthenticated','true')
+                } else {
                 alert('Usuario no válido')
-              } 
+            } 
+              
+        },
+
+        async traerUsuario(mail, password) {
+            const respuesta = await fetch('https://6657b24c5c36170526459cda.mockapi.io/rental/users')
+            const data = await respuesta.json()
+            let user = null
+            let i = 0
+
+            while (i < data.length && user == null) {
+                if (data[i].email === mail && data[i].password === password) {
+                    user = data[i]
+                    console.log(user)
+                } else {
+                    i++
+                    }
+                    
+            }
+            
+            return user
+
         },
 
         isAdmin(){
