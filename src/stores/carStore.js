@@ -15,7 +15,7 @@ export const useCarStore = defineStore('carStore', {
                 try {
                     const response = await axios.get('https://6657b24c5c36170526459cda.mockapi.io/rental/cars')
                     this.cars = response.data;
-    
+                    
                 } catch (error) {
                     console.error('El error es: ', error)
                 }
