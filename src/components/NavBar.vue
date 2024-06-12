@@ -11,7 +11,7 @@
         <!-- acá también poner o sacar según sea admin o no -->
         <router-link to="/Home">Home</router-link>
 
-
+        <router-link to="/CrearAuto">Crear Auto</router-link>
         <router-link to="/Login">Login</router-link>
         <button @click="logout" type="button">Logout</button>
 

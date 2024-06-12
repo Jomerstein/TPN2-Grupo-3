@@ -1,33 +1,34 @@
 <template lang="">
-     <img :src="car.image" :alt="car.id"/>
+     <img :src="car.imageLink" :alt="car.id"/>
     <br></br>
     <div>
-    <p>Nombre: {{ car.nombre }}</p>
-    <p>Año: {{ car.ano }}</p>
-    <p>Marca: {{ car.marco }}</p>
-    <p>Precio: {{ car.precio }}</p>
-    <p>Usuario: {{ car.idUser }}</p>
-    <p>Alquilado hasta: {{ car.alquiladoHasta }}</p>
+    <p>Nombre: {{car.name }}</p>
+    <p>Año: {{ this.car.year }}</p>
+    <p>Marca: {{ this.car.brand }}</p>
+    <p>Precio: {{ this.car.price }}</p>
+    <p>Alquilado hasta: {{ this.car.rentedUntil }}</p>
     </div>
 </template>
 
 <script>
-
+import axios from 'axios';
+import { useCarStore } from '@/stores/carStore';
 export default {
   
     data() {
         return {
-            car: 
-            {
-            id: 1,
-            nombre: 'Toyota Camry',
-            ano: 2020,
-            marco: 'Toyota',
-            idUser: 0,
-            precio: '$50/day',
-            alquiladoHasta: null,
-            image: '/civic.jpg'
-            }
+            parametro: this.$route.params.id, // falta poner que si el auto no existe no te deje o una pantalla de que no existe
+            car: {}
+        }
+    },
+    mounted(){
+       this.fetchAuto()
+    },
+    methods:{
+        async fetchAuto() {
+          const store = useCarStore()
+          const response = await store.fetchUnAuto(this.parametro)
+          this.car = response.data
         }
     }
 }
