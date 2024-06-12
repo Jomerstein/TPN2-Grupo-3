@@ -1,26 +1,31 @@
 <template>
     <div>
+        
         <h1>Crear Auto</h1>
         <form @submit.prevent="crearAuto">
             <div>
                 <label for="title">Nombre: </label>
-                <input v-model="nombre" id="title" type="text" required/>
+                <input v-model="name" id="title" type="text" required/>
             </div>
             <div>
                 <label for="description">Anio: </label>
-                <textarea v-model="ano" id="description" type="text" required></textarea>
+                <textarea v-model="year" id="description" type="text" required></textarea>
             </div>
             <div>
                 <label for="category">Marca: </label>
-                <input v-model="marco" id="category" type="text" required/>
+                <input v-model="brand" id="category" type="text" required/>
             </div>
             <div>
                 <label for="price">Precio: </label>
                 <input v-model="price" id="price" type="number" step="0.01" required/>
             </div>
             <div>
+                <label for="price">Rentado hasta: </label>
+                <input v-model="rentedUntil" id="price" type="number" step="0.01" required/>
+            </div>
+            <div>
                 <label for="image">Link de Imagen</label>
-                <input v-model="image" id="image" type="text" required/>
+                <input v-model="imageLink" id="image" type="text" required/>
             </div>
             <button type="submit">Crear Auto</button>
         </form>
@@ -28,15 +33,11 @@
 </template>
 <script>
 import { useCarStore } from '../stores/carStore';
-
+// ya funciona la creación de autos, hay que validar
 export default {
     data(){
         return{
-            nombre: "",
-            ano: "",
-            marco: "",
-            price: "",
-            image: ""
+        
         }
     },
     methods:{
@@ -44,12 +45,12 @@ export default {
             const carStore = useCarStore()
 
             const nuevoAuto = {
-                id: carStore.cars.length + 1,
-                nombre: this.nombre,
-                ano: this.ano,
-                marco: this.marco,
+                name: this.name,
+                year: this.year,
+                brand: this.brand,
                 price: this.price,
-                image: this.image
+                rentedUntil: this.rentedUntil,
+                imageLink: this.imageLink
             };
 
             carStore.agregarAuto(nuevoAuto);

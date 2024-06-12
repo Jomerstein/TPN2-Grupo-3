@@ -21,6 +21,14 @@ export const useCarStore = defineStore('carStore', {
                 }
             }
          },
+         async fetchUnAuto(id){
+            try {
+                const response = await axios.get(`https://6657b24c5c36170526459cda.mockapi.io/rental/cars/${id}`);
+                return response // Asignamos los datos recibidos a `this.car`
+            } catch (error) {
+                console.error('Error al obtener el auto:', error);
+            }
+         },
         async agregarAuto(nuevoAuto) {
             try {
                 const response = await axios.post('https://6657b24c5c36170526459cda.mockapi.io/rental/cars', nuevoAuto)
