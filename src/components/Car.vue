@@ -26,7 +26,7 @@ export default {
             idUser: 0,
             precio: '$50/day',
             alquiladoHasta: null,
-            image: '/civic.jpeg'
+            image: '/civic.jpg'
             }
         }
     }

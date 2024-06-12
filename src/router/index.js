@@ -29,9 +29,7 @@ const routes = [
     path: '/carDetail/:id',
     name: 'CarDetail',
     component: CarDetail,
-     meta: {
-            requiereAuth: true
-        }
+   
   },
   {
     path: '/crearAuto',
