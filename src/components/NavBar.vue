@@ -2,16 +2,16 @@
   <nav class="navbar">
     <div class="navbar-container">
       <div class="navbar-brand">
-        <a href="#">MiMarca</a>
+        <a href="#">RentalCar ORT</a>
       </div>
       <div class="navbar-menu">
 
-        <router-link to="/CarDetail">Detalle Auto</router-link>
+        <!--<router-link to="/CarDetail">Detalle Auto</router-link>-->
         <!--<router-link to="/CrearAuto">Agregar Auto</router-link>-->
         <!-- acá también poner o sacar según sea admin o no -->
         <router-link to="/Home">Home</router-link>
 
-        <router-link to="/CrearAuto">Crear Auto</router-link>
+        <router-link to="/CrearAuto" v-if=" esAdmin ">Crear Auto</router-link>
         <router-link to="/Login">Login</router-link>
         <button @click="logout" type="button">Logout</button>
 
@@ -32,10 +32,13 @@
 </template>
   
   <script>
+  import { useAuthStore } from '@/stores/userStore';
   export default {
     data() {
       return {
         isActive: false,
+        isAdmin: true,
+        store: useAuthStore()
       };
     },
     methods: {
@@ -45,11 +48,22 @@
       ingresar(){
 
       },
-      logout() {
-        localStorage.removeItem('isAuthenticated');
-        this.$router.push({ name: 'Login' });
-      }
+
+       logout() {
+          localStorage.removeItem('isAuthenticated');
+          this.$router.push({ name: 'Login' });
+          store.setFalse()     
+      }, 
+
     },
+    computed: {
+
+      esAdmin() {
+        return this.store.isAuthenticated
+      }
+      
+    }
+
   };
   </script>
   
