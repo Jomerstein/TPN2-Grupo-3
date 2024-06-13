@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 
 export const useAuthStore = defineStore('userStore', {
     state: () => ({
-        isAuthenticated: false, 
+        isAuthenticated: JSON.parse(localStorage.getItem('isAuthenticated')) || false,
         user: null,
     }),
     actions: {
@@ -34,14 +34,17 @@ export const useAuthStore = defineStore('userStore', {
             if (user != null && user.email == "admin@gmail.com" && user.password == "admin") {
                 this.isAuthenticated = true;
                  localStorage.setItem('isAuthenticated','true')
-            } else if(user != null){
+            } else if(await this.traerUsuario(mail, password) != null){
                 this.isAuthenticated = true;
                 localStorage.setItem('isAuthenticated','true')
-                } else {
+            } else {
+                 this.isAuthenticated == false
                 alert('Usuario no válido')
+
             } 
               
         },
+
 
         async traerUsuario(mail, password) {
             const respuesta = await fetch('https://6657b24c5c36170526459cda.mockapi.io/rental/users')
@@ -65,6 +68,11 @@ export const useAuthStore = defineStore('userStore', {
 
         isAdmin(){
             return this.user.isAdmin
+        },
+
+        setFalse() {
+            this.isAuthenticated = false;
+           // localStorage.setItem('isAuthenticated','false')
         }
 
     }
