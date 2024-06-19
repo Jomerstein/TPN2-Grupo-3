@@ -17,7 +17,7 @@ export default {
     },
     data() {
         return {
-            isAdmin: true,
+            
             store: useAuthStore()
         };
     },
@@ -28,7 +28,7 @@ export default {
     },
     methods:{
         isAdmin() {
-           return this.isAdmin
+           return this.store.isAdmin
         }
     }
 }

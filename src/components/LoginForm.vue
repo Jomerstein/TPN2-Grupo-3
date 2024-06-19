@@ -3,7 +3,7 @@
         <form @submit.prevent="login" class="formulario" action="">
             <label for="">Correo</label>
 
-            <input v-model="username" required type="email" name="nombre" id="nombre">
+            <input v-model="email" required type="email" name="nombre" id="nombre">
 
             <label>Contraseña</label>
 
@@ -20,15 +20,15 @@ import { useAuthStore } from "@/stores/userStore";
 export default {
     data() {
         return {
-            username: '',
+            email: '',
             password: ''
         }
     },
     methods: {
         login() {
             const useUserStore = useAuthStore();
-            useUserStore.login(this.username, this.password);
-            if (useUserStore.isAuthenticated == true) {
+            useUserStore.login(this.email, this.password);
+            if (useUserStore.isAuthenticated) {
                 this.$router.push({ name: 'Home' })
             }
         }
