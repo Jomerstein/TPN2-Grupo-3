@@ -6,6 +6,7 @@ import CrearAuto from '@/views/CrearAuto.vue'
 import ModificarAuto from '@/views/ModificarAuto.vue'
 import EliminarAuto from '@/views/EliminarAuto.vue'
 import Admin from '@/views/Admin.vue'
+import Perfil from '@/views/Perfil.vue'
 
 
 const routes = [
@@ -45,6 +46,14 @@ const routes = [
     path: '/eliminarAuto',
     name: 'EliminarAuto',
     component: EliminarAuto
+  },
+  {
+    path: '/perfil',
+    name: 'Perfil',
+    component: Perfil,
+    meta: {
+      requiereAuth: true
+    }
   },
   {
     path: '/admin',
