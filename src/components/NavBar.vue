@@ -12,7 +12,7 @@
         <router-link to="/Home">Home</router-link>
 
         <router-link to="/CrearAuto" v-if=" esAdmin ">Crear Auto</router-link>
-        <router-link to="/Login">Login</router-link>
+        <router-link to="/Login" v-if="!estaLogeado">Login</router-link>
         <button @click="logout" type="button">Logout</button>
 
       </div>
@@ -50,15 +50,16 @@
       },
 
        logout() {
-          localStorage.removeItem('isAuthenticated');
-          this.$router.push({ name: 'Login' });
-          store.setFalse()     
+          this.store.logout()
       }, 
 
     },
     computed: {
 
       esAdmin() {
+        return this.store.isAdmin
+      },
+      estaLogeado(){
         return this.store.isAuthenticated
       }
       

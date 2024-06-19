@@ -2,8 +2,9 @@ import { defineStore } from 'pinia';
 
 export const useAuthStore = defineStore('userStore', {
     state: () => ({
-        isAuthenticated: JSON.parse(localStorage.getItem('isAuthenticated')) || false,
+        isAuthenticated: false,
         user: null,
+        isAdmin: false
     }),
     actions: {
         async register(usuario){
@@ -20,28 +21,30 @@ export const useAuthStore = defineStore('userStore', {
                   ,
             })
            
-       
-
-         
             }catch(error){
                 console.log(error);
             }
         },
 
         async login(mail, password) {
+           try{
             const user = await this.traerUsuario(mail, password)
+            
+            if(user != null){
+            this.isAuthenticated = true;
+            this.isAdmin = user.isAdmin;
+            this.user = user
+            localStorage.setItem('isAuthenticated','true')
+            localStorage.setItem('isAdmin', user.isAdmin ? 'true' : 'false')
+            localStorage.setItem('user', JSON.stringify(user))
+        } else {
+            
+            alert('Usuario no válido')
 
-            if (user != null && user.email == "admin@gmail.com" && user.password == "admin") {
-                this.isAuthenticated = true;
-                 localStorage.setItem('isAuthenticated','true')
-            } else if(await this.traerUsuario(mail, password) != null){
-                this.isAuthenticated = true;
-                localStorage.setItem('isAuthenticated','true')
-            } else {
-                 this.isAuthenticated == false
-                alert('Usuario no válido')
-
-            } 
+        } 
+           } catch(error){
+            console.log(error);
+           }
               
         },
 
@@ -65,10 +68,14 @@ export const useAuthStore = defineStore('userStore', {
             return user
 
         },
-
-        isAdmin(){
-            return this.user.isAdmin
+        logout(){
+            this.isAuthenticated = false;
+            this.user = null;
+            this.isAdmin = false;
+            localStorage.removeItem('isAuthenticated');
+            localStorage.removeItem('isAdmin')
         },
+
 
         setFalse() {
             this.isAuthenticated = false;
