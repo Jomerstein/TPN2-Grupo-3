@@ -75,11 +75,12 @@ export const useAuthStore = defineStore('userStore', {
             localStorage.removeItem('isAuthenticated');
             localStorage.removeItem('isAdmin')
         },
-
-
-        setFalse() {
-            this.isAuthenticated = false;
-           // localStorage.setItem('isAuthenticated','false')
+        checkAuth(){
+            this.isAuthenticated = localStorage.getItem('isAuthenticated' === true);
+            this.isAdmin = localStorage.getItem('isAdmin') === 'true' ? true : false
+            if(this.isAuthenticated){
+                this.user = JSON.parse(localStorage.getItem('user'))
+            }
         }
 
     }

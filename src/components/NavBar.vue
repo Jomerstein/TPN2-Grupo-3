@@ -13,6 +13,7 @@
 
         <router-link to="/CrearAuto" v-if=" esAdmin ">Crear Auto</router-link>
         <router-link to="/Login" v-if="!estaLogeado">Login</router-link>
+        <router-link to="/Perfil" v-if="estaLogeado">Perfil</router-link>
         <button @click="logout" type="button">Logout</button>
 
       </div>
@@ -45,9 +46,6 @@
       toggleMenu() {
         this.isActive = !this.isActive;
       },
-      ingresar(){
-
-      },
 
        logout() {
           this.store.logout()
@@ -63,6 +61,9 @@
         return this.store.isAuthenticated
       }
       
+    },
+    mounted(){
+      this.store.checkAuth()
     }
 
   };
