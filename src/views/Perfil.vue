@@ -5,37 +5,54 @@
     <p><span class="label">Apellido:</span> {{ usuario.surname }}</p>
     <div class="auto-image">
       <span class="label">Auto:</span>
-      <img v-if="usuario.autoImg" :src="user.autoImg" alt="Imagen del auto">
-      <span v-else>No hay imagen disponible</span>
+      <div v-if="usuario.idAuto !== '0'">
+        <img :src="auto.imageLink" alt="">
     </div>
+    <span v-else>No hay imagen disponible</span>
+  </div>
   </div>
 </template>
 
 
 <script>
+import { useCarStore } from '@/stores/carStore';
 import { useAuthStore } from '@/stores/userStore';
 
 export default {
     data() {
         return {
-            usuario: {}
+            usuario: {},
+            auto: {}
         };
     },
     methods: {
-        recuperarUsuario() {
+       async recuperarUsuario() {
             const usuarioJson = localStorage.getItem('user');
             if (usuarioJson) {
                 this.usuario = JSON.parse(usuarioJson);
+                console.log(this.usuario);
+                console.log(this.usuario.JSON);
+                await this.fetchearAuto()
             } else {
                 console.error('No user found in localStorage');
             }
+        },
+        async fetchearAuto(){
+          const carStore = useCarStore()
+          const auto = await carStore.fetchUnAuto(this.usuario.idAuto)
+          console.log(this.usuario);
+          this.auto = auto.data
+          console.log(this.auto);
         }
     },
     mounted() {
         if (!localStorage.getItem('isAuthenticated')) {
             this.$router.push({ name: 'Login' });
         } else {
+            const store = useAuthStore()
+            store.checkAuth()
             this.recuperarUsuario();
+            
         }
     }
 };

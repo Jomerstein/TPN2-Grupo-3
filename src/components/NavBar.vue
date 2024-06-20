@@ -14,7 +14,7 @@
         <router-link to="/CrearAuto" v-if=" esAdmin ">Crear Auto</router-link>
         <router-link to="/Login" v-if="!estaLogeado">Login</router-link>
         <router-link to="/Perfil" v-if="estaLogeado">Perfil</router-link>
-        <button @click="logout" type="button">Logout</button>
+        <button @click="logout" v-if="estaLogeado"type="button">Logout</button>
 
       </div>
       <div class="navbar-toggle" @click="toggleMenu">
@@ -49,6 +49,7 @@
 
        logout() {
           this.store.logout()
+          this.$router.push("Login")
       }, 
 
     },

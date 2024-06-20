@@ -4,11 +4,13 @@
     <button v-if = "checkAdminStatus" >Eliminar auto</button> 
    
     <button v-if = "checkAdminStatus" >Modificar</button>
-    <button>Alquilar</button>
+    
     <Car />
+    <button @click="alquilar">Alquilar</button>
 </template>
 
 <script>
+import { useCarStore } from '@/stores/carStore';
 import Car from '../components/Car.vue'
 import { useAuthStore } from '@/stores/userStore';
 export default {
@@ -17,7 +19,7 @@ export default {
     },
     data() {
         return {
-            
+            parametro: this.$route.params.id,
             store: useAuthStore()
         };
     },
@@ -29,7 +31,23 @@ export default {
     methods:{
         isAdmin() {
            return this.store.isAdmin
+        },
+       async alquilar(){
+        const carStore = useCarStore()
+        const usuario = JSON.parse(localStorage.getItem('user'))
+        const idPerfil = usuario.id
+        try{
+            await this.store.alquilar(usuario, this.parametro)
+            await carStore.alquilar(idPerfil, this.parametro) 
+          
+        }catch(e){
+            alert(e)
         }
+       
+        }
+    },
+    mounted(){
+      this.store.checkAuth()
     }
 }
 </script>

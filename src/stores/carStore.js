@@ -39,16 +39,28 @@ export const useCarStore = defineStore('carStore', {
         async eliminarAuto(autoParaEliminar) {
             try {
                 const response = await axios.post('https://6657b24c5c36170526459cda.mockapi.io/rental/cars', autoParaEliminar)
-             } catch (error) {
+             } catch (error) { // Cambiar
                 console.error('Error agregando auto')
             }
         },
         async modificarAuto(autoParaModificar) {
             try {
                 const response = await axios.post('https://6657b24c5c36170526459cda.mockapi.io/rental/cars', autoParaModificar)
-             } catch (error) {
+             } catch (error) { // Cambiar
                 console.error('Error agregando auto')
             }
+        },
+        async alquilar(idPerfil, idAuto){
+            
+                const autoDb = await this.fetchUnAuto(idAuto)
+                const auto = autoDb.data
+                if(auto.rentedBy !== `rentedBy ${idAuto}` ){
+                    throw new Error("Auto ya alquilado")
+                }
+                auto.rentedBy = idPerfil
+                console.log(idPerfil);
+                await axios.put(`https://6657b24c5c36170526459cda.mockapi.io/rental/cars/${idAuto}`, auto)
+            
         }
   
     }

@@ -2,7 +2,8 @@
     <div class="car-gallery">
         <h1>Car Rental Gallery</h1>
             <div class="car-list">
-                <div class="car-card" v-for="car in autos" :key="car.id">
+                <div class="car-card" v-for="car in autos" :key="car.id" v-show="car.rentedBy === `rentedBy ${car.id}`">
+                 
                     <img :src="car.imageLink" :alt="car.nombre" class="car-image"/>
                     <h2>{{ car.name }}</h2>
                     <p>Año: {{ car.year }}</p>
@@ -11,6 +12,7 @@
                     <button :disabled="car.idUser" @click="verDetalle(car)">
                       Ver detalle
                     </button>>
+               
                 </div>
             </div>
     </div>
