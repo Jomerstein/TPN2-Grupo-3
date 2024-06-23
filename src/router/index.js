@@ -3,10 +3,11 @@ import Home from '../views/Home.vue'
 import Login from '@/views/Login.vue'
 import CarDetail from '@/views/CarDetail.vue'
 import CrearAuto from '@/views/CrearAuto.vue'
-import ModificarAuto from '@/views/ModificarAuto.vue'
 import EliminarAuto from '@/views/EliminarAuto.vue'
 import Admin from '@/views/Admin.vue'
 import Perfil from '@/views/Perfil.vue'
+import CarPanel from '@/views/CarPanel.vue'
+import EditCar from '@/views/EditCar.vue'
 
 
 const routes = [
@@ -38,11 +39,6 @@ const routes = [
     component: CrearAuto
   },
   {
-    path: '/modificarAuto',
-    name: 'ModificarAuto',
-    component: ModificarAuto
-  },
-  {
     path: '/eliminarAuto',
     name: 'EliminarAuto',
     component: EliminarAuto
@@ -62,7 +58,25 @@ const routes = [
     meta: {
             requiereAuth: true
         }
+  },
+  {
+    path: '/carPanel',
+    name: 'CarPanel',
+    component: CarPanel,
+    meta: {
+            requiereAuth: true
+        }
+  },
+  {
+    path: '/editCar/:id',
+    name: 'EditCar',
+    component: EditCar,
+    meta: {
+      requireAuth:true
+    },
+    props: true
   }
+  
 
 ]
 

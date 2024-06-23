@@ -7,7 +7,9 @@ export const useCarStore = defineStore('carStore', {
         
     }),
     getters: {
-       
+       estaAlquilado: (state) => (auto) =>{
+        return auto.rentedBy !== `rentedBy ${auto.id}`
+       }
     },
     actions: {
         async fetchAutos(){

@@ -6,6 +6,11 @@ export const useAuthStore = defineStore("userStore", {
     user: null,
     isAdmin: false,
   }),
+  getters:{
+    alquiloAuto: (state) =>(usuario) => {
+      return usuario.idAuto != "0"
+    }
+  },
   actions: {
     async register(usuario) {
       try {
@@ -69,17 +74,20 @@ export const useAuthStore = defineStore("userStore", {
       this.isAdmin = false;
       localStorage.removeItem("isAuthenticated");
       localStorage.removeItem("isAdmin");
+      localStorage.removeItem("user")
     },
     checkAuth() {
       this.isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
       this.isAdmin = localStorage.getItem("isAdmin") === "true" ? true : false;
+      console.log(localStorage.getItem("user"));
       if (this.isAuthenticated) {
+        
         this.user = JSON.parse(localStorage.getItem("user"));
       }
     },
     async alquilar(usuario, idAuto) {
         
-      if (usuario.idAuto !== 0) {   
+      if (this.alquiloAuto(usuario)) {   
         throw new Error("El usuario ya alquilo un auto");
       }
       usuario.idAuto = idAuto;
