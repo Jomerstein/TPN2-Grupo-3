@@ -38,21 +38,7 @@ export const useCarStore = defineStore('carStore', {
                 console.error('Error agregando auto')
             }
         },
-        async eliminarAuto(autoParaEliminar) {
-            try {
-                const response = await axios.post('https://6657b24c5c36170526459cda.mockapi.io/rental/cars', autoParaEliminar)
-             } catch (error) { // Cambiar
-                console.error('Error agregando auto')
-            }
-        },
-        async modificarAuto(autoParaModificar) {
-            try {
-                const response = await axios.post('https://6657b24c5c36170526459cda.mockapi.io/rental/cars', autoParaModificar)
-             } catch (error) { // Cambiar
-                console.error('Error agregando auto')
-            }
-        },
-        async alquilar(idPerfil, idAuto){
+        async alquilar(idPerfil, idAuto,rentedUntil){
             
                 const autoDb = await this.fetchUnAuto(idAuto)
                 const auto = autoDb.data
@@ -60,10 +46,28 @@ export const useCarStore = defineStore('carStore', {
                     throw new Error("Auto ya alquilado")
                 }
                 auto.rentedBy = idPerfil
+                auto.rentedUntil = rentedUntil
                 console.log(idPerfil);
                 await axios.put(`https://6657b24c5c36170526459cda.mockapi.io/rental/cars/${idAuto}`, auto)
             
-        }
+        },
+        async updateCar(car) {
+            try {
+              await axios.put(`https://6657b24c5c36170526459cda.mockapi.io/rental/cars/${car.id}`, car);
+            } catch (error) {
+              console.error('Error updating car:', error);
+              throw error;
+            }
+        },
+        async deleteCar(car) {
+            try {
+              await axios.delete(`https://6657b24c5c36170526459cda.mockapi.io/rental/cars/${car.id}`);
+              this.cars = this.cars.filter(car => car.id !== id);
+            } catch (error) {
+              console.error('Error deleting car:', error);
+              throw error;
+            }
+          }
   
     }
 })

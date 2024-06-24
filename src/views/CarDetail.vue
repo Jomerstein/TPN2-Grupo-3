@@ -6,7 +6,14 @@
     <button v-if = "checkAdminStatus" >Modificar</button>
     
     <Car />
-    <button @click="alquilar">Alquilar</button>
+    <form @submit.prevent="selectDate" class="formulario" action="">
+            <label for="">Elija hasta que fecha quiere alquilar</label>
+
+            <input v-model="rentedUntil" required type="date" name="rentedUntil" id="rentedUntil">
+
+            <button type="submit" @click="alquilar">Alquilar</button>
+        </form>
+   
 </template>
 
 <script>
@@ -20,34 +27,47 @@ export default {
     data() {
         return {
             parametro: this.$route.params.id,
-            store: useAuthStore()
+            userStore: useAuthStore(),
+            rentedUntil: null
         };
     },
     computed: {
         checkAdminStatus() {
-            return this.store.isAuthenticated
+            return this.userStore.isAuthenticated
         }
     },
     methods:{
         isAdmin() {
-           return this.store.isAdmin
+           return this.userStore.isAdmin
         },
        async alquilar(){
+        try{
+
+        
+        if(this.rentedUntil === null){
+            alert("Seleccione una fecha")
+            throw new Error("No hay fecha seleccionada")
+        }else{
         const carStore = useCarStore()
-        const usuario = JSON.parse(localStorage.getItem('user'))
+        const usuario = this.userStore.user
         const idPerfil = usuario.id
         try{
-            await this.store.alquilar(usuario, this.parametro)
-            await carStore.alquilar(idPerfil, this.parametro) 
+            await this.userStore.alquilar(usuario, this.parametro)
+            await carStore.alquilar(idPerfil, this.parametro, this.rentedUntil) 
+            alert("Auto alquilado con éxito")
+            this.$router.push('/home')
           
         }catch(e){
             alert(e)
         }
-       
+    }
+}catch(e){
+    console.log(e);
+}
         }
     },
     mounted(){
-      this.store.checkAuth()
+      this.userStore.checkAuth()
     }
 }
 </script>

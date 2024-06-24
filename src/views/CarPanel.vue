@@ -5,13 +5,16 @@
         <div class="details">
           <span class="status" :class="{'rented': estaAlquilado(auto), 'not-rented': !estaAlquilado(auto)}"></span>
           <span class="name">{{ auto.name }}</span>
+          <div v-if="auto.rentedUntil != 0"><span>Alquilado hasta{{ formatedDate(auto.rentedUntil) }}</span></div>
+          <div v-else> Disponible para alquilar</div>
         </div>
         <div class="buttons">
           <button @click="editar(auto)" class="btn edit-btn">Editar</button>
-          <button @click="cancelarAlquiler(auto)" class="btn delete-btn">Cancelar</button>
+          <button @click="eliminarAuto(auto)" class="btn delete-btn">Eliminar</button>
+          <button @click="cancelRent(auto)" class="btn delete-btn">Cancelar renta</button>
         </div>
       </div>
-    </div>
+    </div> <!-- hacer esto como un componente a parte -->
   </template>
 <script>
 import { useCarStore } from '@/stores/carStore';
@@ -22,15 +25,33 @@ export default {
       const store = useCarStore()
       store.fetchAutos()
     },
+    formatedDate(rentedUntil){
+      const date = new Date(rentedUntil);
+      return date.toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })
+    },
     editar(auto){
       this.$router.push({name: 'EditCar', params: {id: auto.id}})
     },
-    cancelarAlquiler(auto){
-
-    },
-    estaAlquilado(idAuto){
+    async eliminarAuto(car){
       const store = useCarStore()
-      return store.estaAlquilado(idAuto)
+      if(!this.estaAlquilado(car)){
+        try{
+          await store.deleteCar(car)
+          alert("Auto eliminado con éxito")
+        }catch(e){
+          console.log(e);
+        }
+      }else{
+        alert("El auto no se puede eliminar, esta alquilado")
+      }
+    },
+    estaAlquilado(auto){
+      const store = useCarStore()
+      return store.estaAlquilado(auto)
     }
     },
     computed:{
@@ -102,8 +123,9 @@ export default {
 }
 
 .buttons {
-  display: flex;
-  gap: 15px;
+  display: column;
+
+  
 }
 
 .btn {

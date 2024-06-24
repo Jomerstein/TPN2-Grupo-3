@@ -41,6 +41,7 @@ export const useAuthStore = defineStore("userStore", {
           localStorage.setItem("isAuthenticated", "true");
           localStorage.setItem("isAdmin", user.isAdmin ? "true" : "false");
           localStorage.setItem("user", JSON.stringify(user));
+          console.log(user);
         } else {
           alert("Usuario no válido");
         }
@@ -95,7 +96,7 @@ export const useAuthStore = defineStore("userStore", {
         `https://6657b24c5c36170526459cda.mockapi.io/rental/users/${usuario.id}`,
         usuario
       );
-      localStorage.setItem('user', JSON.stringify(this.usuario))
+      localStorage.setItem('user', JSON.stringify(usuario))
       console.log(`El id del usuario es ${usuario.id}`);
     },
   },

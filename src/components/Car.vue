@@ -6,7 +6,6 @@
     <p>Año: {{ this.car.year }}</p>
     <p>Marca: {{ this.car.brand }}</p>
     <p>Precio: {{ this.car.price }}</p>
-    <p>Alquilado hasta: {{ this.car.rentedUntil }}</p>
     </div>
 </template>
 

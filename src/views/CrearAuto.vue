@@ -9,7 +9,7 @@
             </div>
             <div>
                 <label for="description">Anio: </label>
-                <textarea v-model="year" id="description" type="text" required></textarea>
+                <input v-model="year" id="description" type="number" required></input>
             </div>
             <div>
                 <label for="category">Marca: </label>
@@ -18,10 +18,6 @@
             <div>
                 <label for="price">Precio: </label>
                 <input v-model="price" id="price" type="number" step="0.01" required/>
-            </div>
-            <div>
-                <label for="price">Rentado hasta: </label>
-                <input v-model="rentedUntil" id="price" type="number" step="0.01" required/>
             </div>
             <div>
                 <label for="image">Link de Imagen</label>
@@ -49,7 +45,7 @@ export default {
                 year: this.year,
                 brand: this.brand,
                 price: this.price,
-                rentedUntil: this.rentedUntil,
+                rentedUntil: 0,
                 imageLink: this.imageLink
             };
 
