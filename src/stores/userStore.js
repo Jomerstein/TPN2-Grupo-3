@@ -99,5 +99,17 @@ export const useAuthStore = defineStore("userStore", {
       localStorage.setItem('user', JSON.stringify(usuario))
       console.log(`El id del usuario es ${usuario.id}`);
     },
+    async cancelRent(){
+      this.user.idAuto = '0'
+      try{
+        await axios.put(
+          `https://6657b24c5c36170526459cda.mockapi.io/rental/users/${this.user.id}`,
+          this.user
+        )
+      }catch(e){
+        throw new Error('Error cancelando la renta: usuario', e)
+      }
+    }
   },
+  
 });
