@@ -1,7 +1,7 @@
 <template>
     <div>
         
-        <h1>Crear Auto</h1>
+        <h1>Agregar Auto</h1>
         <form @submit.prevent="crearAuto">
             <div>
                 <label for="title">Nombre: </label>
@@ -52,6 +52,13 @@ export default {
             carStore.agregarAuto(nuevoAuto);
             alert('Auto creado con exito')
             this.$router.push({ name: 'Home' })
+        },
+        limpiarFormulario() {
+            this.name = '';
+            this.year = null;
+            this.brand = '';
+            this.price = null;
+            this.imageLink = '';
         }
     }
 }

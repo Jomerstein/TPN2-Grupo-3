@@ -9,14 +9,11 @@ import Perfil from '@/views/Perfil.vue'
 import CarPanel from '@/views/CarPanel.vue'
 import EditCar from '@/views/EditCar.vue'
 
-
 const routes = [
   {
     path: "/home",
     name:"Home",
     component: Home,
-    
-
   },
   {
     path: '/',
@@ -76,8 +73,6 @@ const routes = [
     },
     props: true
   }
-  
-
 ]
 
 
@@ -95,7 +90,5 @@ router.beforeEach((to, from, next) => {
         next();
     }
 })
- 
-
 
 export default router

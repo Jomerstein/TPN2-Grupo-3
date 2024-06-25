@@ -5,13 +5,15 @@
           <div class="details">
             <span class="status" :class="{'rented': estaAlquilado(auto), 'not-rented': !estaAlquilado(auto)}"></span>
             <span class="name">{{ auto.name }}</span>
-            <div v-if="auto.rentedUntil != 0"><span>Alquilado hasta{{ formatedDate(auto.rentedUntil) }}</span></div>
+            <div v-if="auto.rentedUntil != 0"><span>Alquilado hasta {{ formatedDate(auto.rentedUntil) }}</span></div>
             <div v-else> Disponible para alquilar</div>
           </div>
           <div class="buttons">
             <button @click="editar()" class="btn edit-btn">Editar</button>
             <button @click="eliminarAuto()" class="btn delete-btn">Eliminar</button>
-            <button @click="cancelRent()" class="btn delete-btn">Cancelar renta</button>
+
+            <!-- Mostrar el botón cancelRent solo si el auto está alquilado -->
+            <button v-if="estaAlquilado(auto)" @click="cancelRent()" class="btn delete-btn">Cancelar renta</button>
           </div>
         </div>
       
