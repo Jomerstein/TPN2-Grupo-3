@@ -1,6 +1,7 @@
 <template lang="">
     <CarGallery />
 </template>
+
 <script>
 import CarGallery from '../components/CarGallery.vue'
 export default {
@@ -9,6 +10,7 @@ export default {
     }
 }
 </script>
+
 <style lang="">
     
 </style>

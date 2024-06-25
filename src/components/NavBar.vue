@@ -10,8 +10,8 @@
         <!--<router-link to="/CrearAuto">Agregar Auto</router-link>-->
         <!-- acá también poner o sacar según sea admin o no -->
         <router-link to="/Home">Home</router-link>
-
-        <router-link to="/CrearAuto" v-if=" esAdmin ">Crear Auto</router-link>
+        <router-link to="/CrearAuto" v-if=" esAdmin ">Agregar Auto</router-link>
+        <router-link to="/CarPanel" v-if=" esAdmin ">Gestionar Autos</router-link>
         <router-link to="/Login" v-if="!estaLogeado">Login</router-link>
         <router-link to="/Perfil" v-if="estaLogeado">Perfil</router-link>
         <button @click="logout" v-if="estaLogeado"type="button">Logout</button>
@@ -34,6 +34,7 @@
   
   <script>
   import { useAuthStore } from '@/stores/userStore';
+
   export default {
     data() {
       return {
@@ -46,27 +47,22 @@
       toggleMenu() {
         this.isActive = !this.isActive;
       },
-
-       logout() {
-          this.store.logout()
-          this.$router.push("Login")
+      logout() {
+        this.store.logout()
+        this.$router.push("Login")
       }, 
-
     },
     computed: {
-
       esAdmin() {
         return this.store.isAdmin
       },
       estaLogeado(){
         return this.store.isAuthenticated
       }
-      
     },
     mounted(){
       this.store.checkAuth()
     }
-
   };
   </script>
   
