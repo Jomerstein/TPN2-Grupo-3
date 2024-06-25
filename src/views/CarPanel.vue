@@ -69,9 +69,11 @@ export default {
     },
     computed:{
     autos(){
+      this.fetchAutos()
       const store = useCarStore()
       return store.cars
     }
+    
   },
     mounted(){
         this.fetchAutos();

@@ -45,6 +45,9 @@ export default {
           console.log(this.auto);
         }
     },
+    computed(){
+      this.recuperarUsuario()
+    },
     mounted() {
       const store = useAuthStore()
         store.checkAuth()

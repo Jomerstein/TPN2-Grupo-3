@@ -49,6 +49,10 @@ export const useCarStore = defineStore('carStore', {
                 auto.rentedUntil = rentedUntil
                 console.log(idPerfil);
                 await axios.put(`https://6657b24c5c36170526459cda.mockapi.io/rental/cars/${idAuto}`, auto)
+                let index = this.cars.findIndex(car => car.id ==idAuto)
+                if(index != -1){
+                    this.cars[index] = auto
+                }
             
         },
         async updateCar(car) {
