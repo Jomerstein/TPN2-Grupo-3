@@ -61,8 +61,9 @@ export const useCarStore = defineStore('carStore', {
         },
         async deleteCar(car) {
             try {
+                this.cars = this.cars.filter(c => c.id !== car.id);
               await axios.delete(`https://6657b24c5c36170526459cda.mockapi.io/rental/cars/${car.id}`);
-              this.cars = this.cars.filter(car => car.id !== id);
+              
             } catch (error) {
               console.error('Error deleting car:', error);
               throw error;

@@ -44,14 +44,21 @@ export default {
     async cancelRent(car){
       const carStore = useCarStore()
       const userStore = useAuthStore()
+      if(this.estaAlquilado(car)){
+        console.log(car.rentedBy);
+      
       try{
+      await userStore.cancelRent(car)
       await carStore.cancelRent(car)
-      await userStore.cancelRent()
+      
+      alert('Auto desalquilado')
       }catch(e){
         alert(e)
       }
+    }else{
+      alert('No se puede desalquilar un auto que no esta alquilado')
+    }
       
-      alert('Auto desalquilado')
 
 
     },

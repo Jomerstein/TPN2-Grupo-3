@@ -6,7 +6,7 @@
             <span class="status" :class="{'rented': estaAlquilado(auto), 'not-rented': !estaAlquilado(auto)}"></span>
             <span class="name">{{ auto.name }}</span>
 
-            <div v-if="auto.rentedUntil != null"><span>Alquilado hasta{{ formatedDate(auto.rentedUntil) }}</span></div>
+            <div v-if="(auto.rentedUntil != null)"><span>Alquilado hasta{{ formatedDate(auto.rentedUntil) }}</span></div>
 
 
             <div v-else> Disponible para alquilar</div>

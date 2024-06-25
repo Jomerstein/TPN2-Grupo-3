@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import { useCarStore } from "./carStore";
 export const useAuthStore = defineStore("userStore", {
   state: () => ({
     isAuthenticated: false,
@@ -99,13 +100,18 @@ export const useAuthStore = defineStore("userStore", {
       localStorage.setItem('user', JSON.stringify(usuario))
       console.log(`El id del usuario es ${usuario.id}`);
     },
-    async cancelRent(){
-      this.user.idAuto = '0'
+    async cancelRent(car){
+      console.log('Aqui dentro ',car.rentedBy);
+      const response = await axios.get( `https://6657b24c5c36170526459cda.mockapi.io/rental/users/${car.rentedBy}`)
+      const usuario = response.data
+      usuario.idAuto = '0'
       try{
         await axios.put(
-          `https://6657b24c5c36170526459cda.mockapi.io/rental/users/${this.user.id}`,
-          this.user
+          `https://6657b24c5c36170526459cda.mockapi.io/rental/users/${usuario.id}`,
+         usuario
         )
+        localStorage.setItem('user', JSON.stringify(usuario))
+        this.user = usuario
       }catch(e){
         throw new Error('Error cancelando la renta: usuario', e)
       }

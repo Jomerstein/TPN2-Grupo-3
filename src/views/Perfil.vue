@@ -46,11 +46,13 @@ export default {
         }
     },
     mounted() {
-        if (!localStorage.getItem('isAuthenticated')) {
+      const store = useAuthStore()
+        store.checkAuth()
+        if (!store.isAuthenticated) {
             this.$router.push({ name: 'Login' });
         } else {
-            const store = useAuthStore()
-            store.checkAuth()
+           
+            
             this.recuperarUsuario();
             
         }

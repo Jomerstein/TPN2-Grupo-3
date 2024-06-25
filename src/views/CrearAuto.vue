@@ -45,7 +45,7 @@ export default {
                 year: this.year,
                 brand: this.brand,
                 price: this.price,
-                rentedUntil: 0,
+                rentedUntil: null,
                 imageLink: this.imageLink
             };
 
