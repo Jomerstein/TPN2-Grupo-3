@@ -5,7 +5,7 @@
           <div class="details">
             <span class="status" :class="{'rented': estaAlquilado(auto), 'not-rented': !estaAlquilado(auto)}"></span>
             <span class="name">{{ auto.name }}</span>
-            <div v-if="auto.rentedUntil != 0"><span>Alquilado hasta{{ formatedDate(auto.rentedUntil) }}</span></div>
+            <div v-if="auto.rentedUntil != null"><span>Alquilado hasta{{ formatedDate(auto.rentedUntil) }}</span></div>
             <div v-else> Disponible para alquilar</div>
           </div>
           <div class="buttons">
@@ -36,7 +36,7 @@ export default {
       this.$emit('editar', this.auto)
     },
     eliminarAuto(){
-      this.$emit('eliminar', this.auto)
+      this.$emit('eliminarAuto', this.auto)
     },
     cancelRent(){
       this.$emit('cancelRent', this.auto)

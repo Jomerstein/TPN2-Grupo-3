@@ -1,11 +1,12 @@
 <template>
     <div class="bar" v-for="auto in autos" :key="auto.id">
       <CarPanelItem :auto="auto" @editar="editar" @eliminarAuto="eliminarAuto" @cancelRent="cancelRent"></CarPanelItem>
-    </div> <!-- hacer esto como un componente a parte -->
+    </div>
   </template>
 <script>
 import CarPanelItem from '@/components/CarPanelItem.vue';
 import { useCarStore } from '@/stores/carStore';
+import { useAuthStore } from '@/stores/userStore';
 
 export default {
   components:{
@@ -40,7 +41,18 @@ export default {
         alert("El auto no se puede eliminar, esta alquilado")
       }
     },
-    cancelRent(){
+    async cancelRent(car){
+      const carStore = useCarStore()
+      const userStore = useAuthStore()
+      try{
+      await carStore.cancelRent(car)
+      await userStore.cancelRent()
+      }catch(e){
+        alert(e)
+      }
+      
+      alert('Auto desalquilado')
+
 
     },
     estaAlquilado(auto){

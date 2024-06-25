@@ -67,7 +67,22 @@ export const useCarStore = defineStore('carStore', {
               console.error('Error deleting car:', error);
               throw error;
             }
+          },
+          
+          async cancelRent(cars){
+            cars.rentedBy = `rentedBy ${cars.id}`
+            cars.rentedUntil = null
+
+          
+                try {
+                    await axios.put(`https://6657b24c5c36170526459cda.mockapi.io/rental/cars/${cars.id}`, cars);
+                  } catch (error) {
+                    console.error('Error cancelando la renta:', error);
+                    throw error;
+                  }
+            
+        
+
           }
-  
     }
 })
