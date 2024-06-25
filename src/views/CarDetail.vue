@@ -1,9 +1,6 @@
 <template lang="">
     <h1>Información del Auto</h1>
     <br></br>
-    <button v-if = "checkAdminStatus" >Eliminar auto</button> 
-   
-    <button v-if = "checkAdminStatus" >Modificar</button>
     
     <Car />
     <form @submit.prevent="selectDate" class="formulario" action="">

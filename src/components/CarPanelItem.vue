@@ -1,20 +1,45 @@
-<template>
-    <div class="bar" v-for="auto in autos" :key="auto.id">
-      <CarPanelItem :auto="auto" @editar="editar" @eliminarAuto="eliminarAuto" @cancelRent="cancelRent"></CarPanelItem>
-    </div> <!-- hacer esto como un componente a parte -->
-  </template>
+<template lang="">
+
+        <div class="content">
+          <img class="image" :src="auto.imageLink" alt="Imagen">
+          <div class="details">
+            <span class="status" :class="{'rented': estaAlquilado(auto), 'not-rented': !estaAlquilado(auto)}"></span>
+            <span class="name">{{ auto.name }}</span>
+            <div v-if="auto.rentedUntil != 0"><span>Alquilado hasta{{ formatedDate(auto.rentedUntil) }}</span></div>
+            <div v-else> Disponible para alquilar</div>
+          </div>
+          <div class="buttons">
+            <button @click="editar()" class="btn edit-btn">Editar</button>
+            <button @click="eliminarAuto()" class="btn delete-btn">Eliminar</button>
+            <button @click="cancelRent()" class="btn delete-btn">Cancelar renta</button>
+          </div>
+        </div>
+      
+</template>
 <script>
-import CarPanelItem from '@/components/CarPanelItem.vue';
 import { useCarStore } from '@/stores/carStore';
 
+
 export default {
-  components:{
-    CarPanelItem
-  },
+    props:{
+        auto:{
+            type: Object,
+            required: true
+        }
+    },
     methods:{
-      fetchAutos(){
+      estaAlquilado(auto){
       const store = useCarStore()
-      store.fetchAutos()
+      return store.estaAlquilado(auto)
+    },
+    editar(){
+      this.$emit('editar', this.auto)
+    },
+    eliminarAuto(){
+      this.$emit('eliminar', this.auto)
+    },
+    cancelRent(){
+      this.$emit('cancelRent', this.auto)
     },
     formatedDate(rentedUntil){
       const date = new Date(rentedUntil);
@@ -24,39 +49,7 @@ export default {
         day: 'numeric'
       })
     },
-    editar(auto){
-      this.$router.push({name: 'EditCar', params: {id: auto.id}})
-    },
-    async eliminarAuto(car){
-      const store = useCarStore()
-      if(!this.estaAlquilado(car)){
-        try{
-          await store.deleteCar(car)
-          alert("Auto eliminado con éxito")
-        }catch(e){
-          console.log(e);
-        }
-      }else{
-        alert("El auto no se puede eliminar, esta alquilado")
-      }
-    },
-    cancelRent(){
 
-    },
-    estaAlquilado(auto){
-      const store = useCarStore()
-      return store.estaAlquilado(auto)
-    }
-    },
-    computed:{
-    autos(){
-      const store = useCarStore()
-      return store.cars
-    }
-  },
-    mounted(){
-        this.fetchAutos();
-        
     }
 }
 </script>
