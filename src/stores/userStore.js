@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import { useCarStore } from "./carStore";
+import zxcvbn from 'zxcvbn'
 export const useAuthStore = defineStore("userStore", {
   state: () => ({
     isAuthenticated: false,
@@ -17,11 +18,14 @@ export const useAuthStore = defineStore("userStore", {
       const unicoemail = await this.isEmailUnique(usuario.email)
       console.log(true);
       try {
-        console.log(usuario);
+        
        
        
         if(unicoemail){
-          
+          if(zxcvbn(usuario.password).score <= 1 ){
+            console.log(zxcvbn(usuario.password).score);
+            throw new Error('Constraseña muy débil')
+          }
         
         const respuesta = await fetch(
           "https://6657b24c5c36170526459cda.mockapi.io/rental/users",

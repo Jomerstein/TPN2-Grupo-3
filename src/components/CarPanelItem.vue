@@ -106,7 +106,7 @@ export default {
 }
 
 .rented {
-  background-color: red;
+  background-color: #880e0e;
 }
 
 .name {
@@ -129,20 +129,20 @@ export default {
 }
 
 .edit-btn {
-  background-color: #17a2b8;
+  background-color: #000000;
   color: white;
 }
 
 .edit-btn:hover {
-  background-color: #138496;
+  background-color: #5e5e5e;
 }
 
 .delete-btn {
-  background-color: #dc3545;
-  color: white;
+  background-color: #880e0e;
+  color: rgb(0, 0, 0);
 }
 
 .delete-btn:hover {
-  background-color: #c82333;
+  background-color: #5e5e5e;
 }
 </style>

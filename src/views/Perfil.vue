@@ -1,19 +1,19 @@
-
- <template>
+<template>
   <div class="user-info">
     <p><span class="label">Nombre:</span> {{ usuario.name }}</p>
     <p><span class="label">Apellido:</span> {{ usuario.surname }}</p>
-    <div class="auto-image">
-      <span class="label">Auto:</span>
-      <div v-if="usuario.idAuto !== '0'">
-        <img :src="auto.imageLink" alt="">
+    <div class="auto-info" v-if="usuario.idAuto != '0'">
+      <div class="auto-details">
+        <p><span class="label">Auto:</span> {{ auto.name }}</p>
+        <p><span class="label">Marca:</span> {{ auto.brand }}</p>
+        <p><span class="label">Alquilado hasta:</span> {{ auto.rentedUntil }}</p>
+      </div>
+      <div class="auto-image">
+        <img :src="auto.imageLink" alt="Imagen del auto">
+      </div>
     </div>
-    <!-- <span v-else>No hay imagen disponible</span> -->
-    <span v-else>No tiene auto alquilado</span>
-  </div>
   </div>
 </template>
-
 
 <script>
 import { useCarStore } from '@/stores/carStore';
@@ -64,19 +64,20 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .user-info {
   font-family: Arial, sans-serif;
   background-color: #f9f9f9;
-  padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 500px;
+  margin: auto;
 }
 
 .user-info p {
   margin: 10px 0;
+  font-size: 1.1em;
 }
 
 .label {
@@ -84,15 +85,29 @@ export default {
   color: #333;
 }
 
-.auto-image {
-  margin-top: 10px;
+.auto-info {
   display: flex;
   align-items: center;
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.auto-details {
+  flex: 1;
+}
+
+.auto-details p {
+  margin: 5px 0;
 }
 
 .auto-image img {
-  max-width: 100px;
-  max-height: 100px;
-  margin-left: 10px;
+  width: 150px;
+  height: auto;
+  border-radius: 10px;
+  margin-left: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 </style>

@@ -11,7 +11,7 @@
                     <p class="price">Precio: {{ car.price }}</p>
                     <button :disabled="car.idUser" @click="verDetalle(car)">
                       Ver detalle
-                    </button>>
+                    </button>
                
                 </div>
             </div>
@@ -112,7 +112,7 @@ export default {
 button {
   display: block;
   width: 100%;
-  background-color: #28a745;
+  background-color: #880e0e;
   color: white;
   border: none;
   padding: 10px;
@@ -124,7 +124,7 @@ button {
 }
 
 button:hover {
-  background-color: #218838;
+  background-color: #000000;
 }
 
 button:disabled {

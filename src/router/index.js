@@ -3,7 +3,7 @@ import Home from '../views/Home.vue'
 import Login from '@/views/Login.vue'
 import CarDetail from '@/views/CarDetail.vue'
 import CrearAuto from '@/views/CrearAuto.vue'
-
+import NoAccess from '@/views/NoAccess.vue'
 import Perfil from '@/views/Perfil.vue'
 import CarPanel from '@/views/CarPanel.vue'
 import EditCar from '@/views/EditCar.vue'
@@ -66,6 +66,11 @@ const routes = [
       requiereAdmin: true
     },
     props: true
+  },
+  {
+    path: '/noAccess',
+    name: 'noAccess',
+    component: NoAccess
   }
 ]
 
@@ -81,8 +86,8 @@ router.beforeEach((to, from, next) => {
     if(to.meta.requiereAuth && !isAuthenticated){
         next({name:'Login'})
     }else if(to.meta.requiereAdmin && !isAdmin){
-        next({name:'Home'})
-        alert("El usuario no es admin, no puede acceder")
+        next({name:'noAccess'})
+        
     }
     else{
         next();

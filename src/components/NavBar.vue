@@ -9,26 +9,17 @@
         <!--<router-link to="/CarDetail">Detalle Auto</router-link>-->
         <!--<router-link to="/CrearAuto">Agregar Auto</router-link>-->
         <!-- acá también poner o sacar según sea admin o no -->
-        <router-link to="/Home">Home</router-link>
-        <router-link to="/CrearAuto" v-if=" esAdmin ">Agregar Auto</router-link>
-        <router-link to="/CarPanel" v-if=" esAdmin ">Gestionar Autos</router-link>
-        <router-link to="/Login" v-if="!estaLogeado">Login</router-link>
-        <router-link to="/Perfil" v-if="estaLogeado">Perfil</router-link>
-        <button @click="logout" v-if="estaLogeado"type="button">Logout</button>
+        <router-link to="/Home"class="navbar-button" >Home</router-link>
+        <router-link to="/CrearAuto"class="navbar-button"  v-if=" esAdmin ">Agregar Auto</router-link>
+        <router-link to="/CarPanel" class="navbar-button" v-if=" esAdmin ">Gestionar Autos</router-link>
+        <router-link to="/Login" class="navbar-button" v-if="!estaLogeado">Login</router-link>
+        <router-link to="/Perfil" class="navbar-button" v-if="estaLogeado">Perfil</router-link>
+        <button @click="logout" v-if="estaLogeado" class="navbar-button">Logout</button>
 
       </div>
-      <div class="navbar-toggle" @click="toggleMenu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+      
     </div>
-    <div class="navbar-dropdown" :class="{ 'is-active': isActive }">
-      <a href="#" @click="toggleMenu">Inicio</a>
-      <a href="#" @click="toggleMenu">Sobre Nosotros</a>
-      <a href="#" @click="toggleMenu">Servicios</a>
-      <a href="#" @click="toggleMenu">Contacto</a>
-    </div>
+  
   </nav>
 </template>
   
@@ -67,6 +58,19 @@
   </script>
   
   <style scoped>
+  .navbar-button {
+  background-color: #880e0e; /* Color de fondo del botón */
+  color: #ffffff; /* Color del texto */
+  border: none; /* Sin borde */
+  padding: 8px 16px; /* Padding interno */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cursor de tipo puntero */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Transición suave de color */
+}
+
+.navbar-button:hover {
+  background-color: #880e0e; /* Color de fondo al pasar el mouse */
+}
 .navbar {
   width: 100%;
   position: fixed;
