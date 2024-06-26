@@ -8,7 +8,8 @@
       <div v-if="usuario.idAuto !== '0'">
         <img :src="auto.imageLink" alt="">
     </div>
-    <span v-else>No hay imagen disponible</span>
+    <!-- <span v-else>No hay imagen disponible</span> -->
+    <span v-else>No tiene auto alquilado</span>
   </div>
   </div>
 </template>
