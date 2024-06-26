@@ -25,7 +25,8 @@ export const useAuthStore = defineStore("userStore", {
             },
             body: JSON.stringify(usuario),
           }
-        );
+        )
+        
       } catch (error) {
         console.log(error);
       }

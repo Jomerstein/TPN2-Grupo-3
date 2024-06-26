@@ -3,8 +3,7 @@ import Home from '../views/Home.vue'
 import Login from '@/views/Login.vue'
 import CarDetail from '@/views/CarDetail.vue'
 import CrearAuto from '@/views/CrearAuto.vue'
-import EliminarAuto from '@/views/EliminarAuto.vue'
-import Admin from '@/views/Admin.vue'
+
 import Perfil from '@/views/Perfil.vue'
 import CarPanel from '@/views/CarPanel.vue'
 import EditCar from '@/views/EditCar.vue'
@@ -33,13 +32,13 @@ const routes = [
   {
     path: '/crearAuto',
     name: 'CrearAuto',
-    component: CrearAuto
+    component: CrearAuto,
+    meta :{
+      requiereAuth: true,
+      requiereAdmin: true
+    }
   },
-  {
-    path: '/eliminarAuto',
-    name: 'EliminarAuto',
-    component: EliminarAuto
-  },
+
   {
     path: '/perfil',
     name: 'Perfil',
@@ -48,20 +47,14 @@ const routes = [
       requiereAuth: true
     }
   },
-  {
-    path: '/admin',
-    name: 'Admin',
-    component: Admin,
-    meta: {
-            requiereAuth: true
-        }
-  },
+
   {
     path: '/carPanel',
     name: 'CarPanel',
     component: CarPanel,
     meta: {
-            requiereAuth: true
+            requiereAuth: true,
+            requiereAdmin: true
         }
   },
   {
@@ -69,7 +62,8 @@ const routes = [
     name: 'EditCar',
     component: EditCar,
     meta: {
-      requireAuth:true
+      requireAuth:true,
+      requiereAdmin: true
     },
     props: true
   }
@@ -83,8 +77,12 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+    const isAdmin = localStorage.getItem('isAdmin') === 'true'
     if(to.meta.requiereAuth && !isAuthenticated){
         next({name:'Login'})
+    }else if(to.meta.requiereAdmin && !isAdmin){
+        next({name:'Home'})
+        alert("El usuario no es admin, no puede acceder")
     }
     else{
         next();

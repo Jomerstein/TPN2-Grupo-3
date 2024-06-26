@@ -37,8 +37,18 @@ export default {
 
 
             }
+            try{
+
+            
             await userStore.register(usuario)
-            console.log(this.name);
+            await userStore.login(usuario.email, usuario.password)
+            if (userStore.isAuthenticated) {
+                
+                this.$router.push({ name: 'Home' })
+            }
+            }catch(e){
+                console.log(e);
+            }
         }
     }
 }
