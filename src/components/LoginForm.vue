@@ -29,8 +29,11 @@ export default {
             const useUserStore = useAuthStore();
             useUserStore.login(this.email, this.password);
             if (useUserStore.isAuthenticated) {
+                
                 this.$router.push({ name: 'Home' })
             }
+            alert("Login OK, click en Home para ver los autos disponibles en alquiler")
+
         }
     }
    

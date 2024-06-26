@@ -57,8 +57,9 @@ export default {
         }catch(e){
             alert(e)
         }
-    }
-}catch(e){
+        }
+        }catch(e){
+    alert("No puede alquilar un auto sin haber iniciado sesión")
     console.log(e);
 }
         }
