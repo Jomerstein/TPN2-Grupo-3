@@ -47,7 +47,7 @@ export default {
                 this.$router.push({ name: 'Home' })
             }
             }catch(e){
-                console.log(e);
+                alert(e)
             }
         }
     }

@@ -7,7 +7,8 @@ import CarGallery from '../components/CarGallery.vue'
 export default {
     components: {
         CarGallery
-    }
+    },
+    
 }
 </script>
 

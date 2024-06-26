@@ -20,6 +20,7 @@
 
 <script>
 import { useCarStore } from '@/stores/carStore';
+import { useAuthStore } from '@/stores/userStore';
 export default {
   name: 'CarGallery',
   data() {
@@ -34,16 +35,22 @@ export default {
     },
     fetchAutos(){
       this.carStore.fetchAutos()
-    }
+    },
+   
   },
   computed:{
     autos(){
       return this.carStore.cars
-    }
+    },
+   
+    
   },
-  mounted(){
+   mounted(){
         this.fetchAutos();
         console.log(this.carStore.cars);
+       
+        
+        
     }
 }
 </script>

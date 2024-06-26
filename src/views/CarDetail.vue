@@ -37,6 +37,7 @@ export default {
         isAdmin() {
            return this.userStore.isAdmin
         },
+        
        async alquilar(){
         try{
 
@@ -66,6 +67,7 @@ export default {
     },
     mounted(){
       this.userStore.checkAuth()
+      
     }
 }
 </script>

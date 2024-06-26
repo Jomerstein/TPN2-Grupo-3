@@ -14,8 +14,15 @@ export const useAuthStore = defineStore("userStore", {
   },
   actions: {
     async register(usuario) {
+      const unicoemail = await this.isEmailUnique(usuario.email)
+      console.log(true);
       try {
         console.log(usuario);
+       
+       
+        if(unicoemail){
+          
+        
         const respuesta = await fetch(
           "https://6657b24c5c36170526459cda.mockapi.io/rental/users",
           {
@@ -26,9 +33,32 @@ export const useAuthStore = defineStore("userStore", {
             body: JSON.stringify(usuario),
           }
         )
+      }else{
+        throw new Error('Email ya en uso')
+      }
         
       } catch (error) {
         console.log(error);
+      }
+    },
+    async isEmailUnique(email) {
+      try {
+        const response = await axios.get("https://6657b24c5c36170526459cda.mockapi.io/rental/users");
+        const users = response.data;
+    
+        // Verificar si el email ya existe en la lista de usuarios
+        for (let i = 0; i < users.length; i++) {
+          if (users[i].email === email) {
+            console.log(`Email ${email} already exists.`);
+            return false;
+          }
+        }
+    
+        console.log(`Email ${email} is unique.`);
+        return true;
+      } catch (error) {
+        console.error('Error fetching users:', error);
+        return false;
       }
     },
 
